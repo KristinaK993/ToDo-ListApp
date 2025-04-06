@@ -1,0 +1,29 @@
+﻿## Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Bb]in/
+[Oo]bj/
+*.dll
+*.exe
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+
+## Logs, cache, settings
+*.log
+*.cache
+*.tmp
+*.sqlite
+*.db
+.vscode/
+
+## Others
+TestResults/
+.vsconfig
