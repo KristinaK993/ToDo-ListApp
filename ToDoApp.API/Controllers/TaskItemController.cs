@@ -15,20 +15,20 @@ namespace ToDoApp.API.Repositories.TaskItems
     public class TaskItemController : ControllerBase
     {
         private readonly ITaskItemRepository _repo;
-        private readonly IRandomJokeService _advice;
+        private readonly IRandomJokeService _joke;
 
-        public TaskItemController(ITaskItemRepository repo, IRandomJokeService advice)
+        public TaskItemController(ITaskItemRepository repo, IRandomJokeService joke)
         {
             _repo = repo;
-            _advice = advice;
+            _joke = joke;
         }
 
 
         [HttpGet("Joke")]
         public async Task<IActionResult> GetRandomJoke()
         {
-            var advice = await _advice.GetRandomJokeAsync();
-            return Ok(advice);
+            var advice = await _joke.GetRandomJokeAsync();
+            return Ok(_joke);
         }
 
 
