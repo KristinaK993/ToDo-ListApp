@@ -37,7 +37,7 @@ namespace ToDoApp.API
                     Title = "ToDoApp API",
                     Version = "v1"
                 });
-                //  för JWT support
+                //  för Authorization knappen i API och vad det innebär
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
