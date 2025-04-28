@@ -4,11 +4,11 @@ namespace ToDoApp.API.Repositories.CategoryRepo
 {
     public interface ICategoryRepository
     {
-        Task<List<Category>> GetAllAsync();
-        Task<Category?> GetByIdAsync(int id);
-        Task AddAsync(Category category);
-        void Update(Category category);
-        void Delete(Category category);
-        Task<bool> SaveChangesAsync();
+        Task<List<Category>> GetAllAsync(); //hämtar alla kategorier från databasen
+        Task<Category?> GetByIdAsync(int id); //hämtar kategorier by ID 
+        Task AddAsync(Category category); //Lägger till kategorier
+        void Update(Category category); //uppdaterar
+        void Delete(Category category); //raderar
+        Task<bool> SaveChangesAsync(); //sparar
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace ToDoApp.API.Services
 {
-    public interface IRandomJokeService
+    public interface IRandomJokeService //hämtar slumpmässigt skämt från openAPI
     {
-        Task<string> GetRandomJokeAsync();
+        Task<string> GetRandomJokeAsync(); //sträng som visar själva skämtet 
 
     }
 }

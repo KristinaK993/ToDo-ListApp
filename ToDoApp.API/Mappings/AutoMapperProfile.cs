@@ -4,14 +4,14 @@ using ToDoApp.API.Models.Entities;
 
 namespace ToDoApp.API.Mappings
 {
-    public class AutoMapperProfile : Profile
+    public class AutoMapperProfile : Profile //ärver från automappers profile klass
     {
-        public AutoMapperProfile()
+        public AutoMapperProfile() //konstuktor för att konfigurera alla mappings
         {
             // User
-            CreateMap<User, UserDTO>();
-            CreateMap<UserRegisterDto, User>();
-            CreateMap<UserUpdateDTO, User>();
+            CreateMap<User, UserDTO>(); //returnera användare från API
+            CreateMap<UserRegisterDto, User>(); //när någon registrerar sig 
+            CreateMap<UserUpdateDTO, User>(); //när någon uppdaterar sin profil
         }
     }
 }

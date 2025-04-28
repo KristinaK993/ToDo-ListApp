@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "2a646cb1-8b0d-45b4-87d0-aeaf4f03b51b",
+		"name": "ToDoApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43162020"
+	},
+	"item": [
+		{
+			"name": "Log in",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"testUser\",\r\n  \"password\": \"test123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7121/api/Auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7121",
+					"path": [
+						"api",
+						"Auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Api/Taskitem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdFVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzQzOTY0NzYzLCJpc3MiOiJUb0RvQXBwIiwiYXVkIjoiVG9Eb0FwcFVzZXJzIn0.Ega6xb60Yzw_rWMA3_0Qp7QJPgm8QvCS57XngFvoQsM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7121/api/TaskItem",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7121",
+					"path": [
+						"api",
+						"TaskItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TaskById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdFVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzQzOTY2NDc1LCJpc3MiOiJUb0RvQXBwIiwiYXVkIjoiVG9Eb0FwcFVzZXJzIn0.kCJ0qgKt8SF0rVsiedgo6y19-7hcQr3f29zSX1eN5I0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7121/api/TaskItem/14\n",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7121",
+					"path": [
+						"api",
+						"TaskItem",
+						"14\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateNewTask",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdFVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzQzOTY3Mzk1LCJpc3MiOiJUb0RvQXBwIiwiYXVkIjoiVG9Eb0FwcFVzZXJzIn0.cXboQKiXmPSfLCpSTgOAneVhKGyh-IHUXtx-kCEWYyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Plugga till prov\",\r\n  \"description\": \"Matte kapitel 4 och 5\",\r\n  \"dueDate\": \"2025-04-20T00:00:00\",\r\n  \"categoryId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7121/api/TaskItem",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7121",
+					"path": [
+						"api",
+						"TaskItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTask",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdFVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzQzOTY4NDM2LCJpc3MiOiJUb0RvQXBwIiwiYXVkIjoiVG9Eb0FwcFVzZXJzIn0.nPGR5QqIQhnYH85COvsA9XzQICaG1f2rMR1tLbUx6cA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Ny titel\",\r\n  \"description\": \"Ny beskrivning\",\r\n  \"dueDate\": \"2025-04-25T00:00:00\",\r\n  \"categoryId\": 3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7121/api/TaskItem/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7121",
+					"path": [
+						"api",
+						"TaskItem",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTask",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdFVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzQzOTY4ODczLCJpc3MiOiJUb0RvQXBwIiwiYXVkIjoiVG9Eb0FwcFVzZXJzIn0.mmvloDds2HLxS_LAgj-sqNqcTOVqaEZ8GH4gBVzMOjU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7121/api/TaskItem/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7121",
+					"path": [
+						"api",
+						"TaskItem",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -20,15 +20,15 @@ namespace ToDoApp.API
     {
         public static async Task Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args); //initierar appen 
 
-            // Add services to the container.
-
-            builder.Services.AddControllers()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-            });
+            // Här registreras olika tjänster som API behöver
+            builder.Services.AddControllers() //api kan hantera requests via controllers
+                        .AddJsonOptions(options =>
+                        {
+                            // Bevarar objektreferenser för att undvika oändliga JSON-loopar vid serialisering
+                            options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                        }); //hur API ska hantera Json svar
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -37,44 +37,66 @@ namespace ToDoApp.API
                     Title = "ToDoApp API",
                     Version = "v1"
                 });
-            });
+                //  för JWT support
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer"
+                });
 
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+        {
+            new OpenApiSecurityScheme{
+                Reference = new OpenApiReference{
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+            });
+            //läser databaskopplingen
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddFluentValidationAutoValidation();
-            builder.Services.AddValidatorsFromAssemblyContaining<UserRegisterDTOValidator>();
-            builder.Services.AddHttpClient<IRandomJokeService, RandomJokeService>();
-            builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+
+            builder.Services.AddScoped<IUserService, UserService>(); //service för auth
+            builder.Services.AddScoped<IUserRepository, UserRepository>(); //repo för User
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); //repo för kategori
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());//AutoMapper
+            builder.Services.AddFluentValidationAutoValidation(); //fluentValidation
+            builder.Services.AddValidatorsFromAssemblyContaining<UserRegisterDTOValidator>();//lägg till alla validatorer
+            builder.Services.AddHttpClient<IRandomJokeService, RandomJokeService>(); //extern API
+            builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();//repo för task 
 
             //JWT-konfiguration
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
         {
-            options.TokenValidationParameters = new TokenValidationParameters
+            options.TokenValidationParameters = new TokenValidationParameters //valideringregler
             {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false, //vem som skapade
+                ValidateAudience = false, //till vem den skapades
+                ValidateIssuerSigningKey = true, //kontrollera att signering är korrekt
                 IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) //här anges vilken nyckel
             };
         });
 
-            builder.Services.AddAuthorization();
+            builder.Services.AddAuthorization(); //lägger till rollhantering
 
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())  //bogusSeedData
             {
                 var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                await SeedData.Seed(context);
+                await SeedData.Seed(context); //fyller databasen med data
             }
 
-            // Configure the HTTP request pipeline.
+            //starta
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

@@ -12,49 +12,45 @@ namespace ToDoApp.API.Repositories.TaskItems
 
         public TaskItemRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context; //tar in databascontext via Dependency injection
         }
 
-        public async Task<List<TaskItem>> GetAllAsync()
+        public async Task<List<TaskItem>> GetAllAsync() //returnerar alla tasks även tillhörande kategori
         {
             return await _context.Tasks
                 .Include(t => t.Category)
                 .ToListAsync();
         }
 
-        public async Task<TaskItem?> GetByIdAsync(int id)
+        public async Task<TaskItem?> GetByIdAsync(int id) //hämta tasks med spec ID
         {
             return await _context.Tasks
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(t => t.Id == id);
+                .Include(t => t.Category) //kategori
+                .FirstOrDefaultAsync(t => t.Id == id); //returnera task el null
         }
 
-        public async Task AddAsync(TaskItem task)
+        public void Update(TaskItem task) //uppdatera bef task
         {
-            await _context.Tasks.AddAsync(task);
+            _context.Tasks.Update(task); //markerar att den är ändrad i content
         }
 
-        public void Update(TaskItem task)
+        public void Delete(TaskItem task) //radera task 
         {
-            _context.Tasks.Update(task);
-        }
-
-        public void Delete(TaskItem task)
-        {
-            _context.Tasks.Remove(task);
+            _context.Tasks.Remove(task); //markerar task för bort tagning
         }
 
         public async Task<bool> SaveChangesAsync()
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0; //returnerar true om minst 1 sak sparades
         }
 
-        public async Task CreateAsync(TaskItem task)
+        public async Task CreateAsync(TaskItem task) //skapa 
         {
-            await _context.Tasks.AddAsync(task);
+            await _context.Tasks.AddAsync(task); //lägg till i context 
+            await _context.SaveChangesAsync(); //spara 
         }
 
-        public IQueryable<TaskItem> GetAllAsQueryable()
+        public IQueryable<TaskItem> GetAllAsQueryable() // ret allt som kan filtrera,sortera,paginera
         {
             return _context.Tasks
                 .Include(t => t.Category)

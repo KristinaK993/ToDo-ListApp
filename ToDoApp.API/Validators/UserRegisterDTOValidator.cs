@@ -3,9 +3,10 @@ using ToDoApp.API.Models.DTOs;
 
 namespace ToDoApp.API.Validators
 {
+    // Validator för UserRegisterDto som definierar valideringsregler för registrering
     public class UserRegisterDTOValidator : AbstractValidator<UserRegisterDto>
     {
-        public UserRegisterDTOValidator()
+        public UserRegisterDTOValidator() //konstruktior där valideringsregler sätts upp
         {
             RuleFor(x => x.Username)
                 .NotEmpty().WithMessage("Username is required")
